@@ -5,7 +5,7 @@
 @author       XCanG
 @homepageURL  https://github.com/JumpJets/Pixiv-fullscreen-userstyle
 @supportURL   https://github.com/JumpJets/Pixiv-fullscreen-userstyle/discussions
-@version      2023.03.03
+@version      2023.05.08
 @license      MIT
 @preprocessor stylus
 ==/UserStyle== */
@@ -314,7 +314,13 @@ section aside > iframe + ul::after {
 }
 
 /* Highlight AI images */
-div[type="illust"] div[radius]:has(img[alt~="NovelAI"])::after, div[type="illust"] div[radius]:has(img[alt~="AI"])::after {
+div[type="illust"] div[radius]:has(:is(
+	img[alt~="AI,"],
+	img[alt~="AI"],
+	img[alt*="NovelAI"],
+	img[alt*="StableDiffusion"],
+	img[alt*="AIart"]
+))::after {
 	content: "AI";
 	display: block;
 	position: absolute;
@@ -325,7 +331,14 @@ div[type="illust"] div[radius]:has(img[alt~="NovelAI"])::after, div[type="illust
 	color: #ffb56f;
 	pointer-events: none;
 }
-div[type="illust"] div[radius]:not(:hover):has(img[alt~="NovelAI"])::before, div[type="illust"] div[radius]:not(:hover):has(img[alt~="AI"])::before {
+
+div[type="illust"] div[radius]:not(:hover):has(:is(
+	img[alt~="AI,"],
+	img[alt~="AI"],
+	img[alt*="NovelAI"],
+	img[alt*="StableDiffusion"],
+	img[alt*="AIart"]
+))::before {
 	border-bottom: 30px solid #ff572294 !important;
 	height: 86%;
 	backdrop-filter: grayscale(.5) brightness(.7);
