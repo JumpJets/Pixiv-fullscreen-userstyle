@@ -1,11 +1,11 @@
 /* ==UserStyle==
 @name         Pixiv fullscreen userstyle
+@version      2023.07.19
 @namespace    github.com/JumpJets/Pixiv-fullscreen-userstyle
 @description  Maximize preview for website and make it convenient to navigate with my Global-moving-support-userscript.
 @author       XCanG
 @homepageURL  https://github.com/JumpJets/Pixiv-fullscreen-userstyle
 @supportURL   https://github.com/JumpJets/Pixiv-fullscreen-userstyle/discussions
-@version      2023.05.08
 @license      MIT
 @preprocessor stylus
 ==/UserStyle== */
@@ -35,6 +35,11 @@ body > #root > div:not([id]) > div[class|="sc"]:nth-of-type(1):hover,
 body > #root > .charcoal-token > div:not([id]) > div[class|="sc"]:nth-of-type(1):hover {
 	opacity: 1;
 	transform: translateY(0px);
+}
+
+body > #root > .charcoal-token > div > div > div[style*="position: relative"] > div:last-of-type {
+	display: none;
+	/* backdrop-filter: brightness(0.5); */
 }
 
 /* fix open menu being cut */
