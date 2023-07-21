@@ -7,7 +7,6 @@
 @homepageURL  https://github.com/JumpJets/Pixiv-fullscreen-userstyle
 @supportURL   https://github.com/JumpJets/Pixiv-fullscreen-userstyle/discussions
 @license      MIT
-@preprocessor stylus
 ==/UserStyle== */
 
 @-moz-document url-prefix("https://www.pixiv.net/artworks/"), url-prefix("https://www.pixiv.net/en/artworks/") {
