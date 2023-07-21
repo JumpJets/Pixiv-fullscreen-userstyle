@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name         Pixiv fullscreen userstyle
-@version      2023.07.19
+@version      2023.07.21
 @namespace    github.com/JumpJets/Pixiv-fullscreen-userstyle
 @description  Maximize preview for website and make it convenient to navigate with my Global-moving-support-userscript.
 @author       XCanG
@@ -15,114 +15,160 @@
 
 body {
 	min-width: unset !important;
-}
 
-body > #root {
-	overflow-y: hidden !important;
-}
+	> #root {
+		overflow-y: hidden !important;
 
-/* top menu */
-body > #root > div:not([id]) > div[class|="sc"]:nth-of-type(1),
-body > #root > .charcoal-token > div:not([id]) > div[class|="sc"]:nth-of-type(1) {
-	position: fixed;
-	z-index: 30;
-	transform: translateY(-54px);
-	opacity: 0;
-	transition: .1s ease;
-}
+		> .charcoal-token > div {
+			/* top menu */
+			& > div:has(button[title="Menu"]) {
+				position: fixed;
+				z-index: 30;
+				transform: translateY(-54px);
+				opacity: 0;
+				transition: .1s ease;
 
-body > #root > div:not([id]) > div[class|="sc"]:nth-of-type(1):hover,
-body > #root > .charcoal-token > div:not([id]) > div[class|="sc"]:nth-of-type(1):hover {
-	opacity: 1;
-	transform: translateY(0px);
-}
+				&:hover {
+					opacity: 1;
+					transform: translateY(0px);
+				}
+			}
 
-body > #root > .charcoal-token > div > div > div[style*="position: relative"] > div:last-of-type {
-	display: none;
-	/* backdrop-filter: brightness(0.5); */
-}
+			> div > div[style*="position: relative"] > div:last-of-type {
+				display: none;
+				/* backdrop-filter: brightness(0.5); */
+			}
 
-/* fix open menu being cut */
-body > div > div[open], body > div > div[open] > div:first-child {
-	max-height: calc(100vh - 15px) !important;
-}
+			/* main page wrap */
+			> div[style] {
+				position: relative;
+				display: grid;
+				/*justify-content: start;
+				justify-items: center;*/
 
-/* main page wrap */
-body > #root > div:not([id]) > div[class|="sc"]:nth-of-type(2),
-body > #root > .charcoal-token > div:not([id]) > div[class|="sc"]:nth-of-type(2) {
-	position: relative;
-	display: grid;
-	/*justify-content: start;
-	justify-items: center;*/
-}
+				> div > div {
+					max-width: 100% !important;
+					padding: 0 !important;
+					margin: 0 !important;
 
-body > #root > div:not([id]) > div[class|="sc"]:nth-of-type(2) > div,
-body > #root > .charcoal-token > div:not([id]) > div[class|="sc"]:nth-of-type(2) > div {
-	max-width: 100% !important;
-	padding: 0 !important;
-	margin: 0 !important;
-}
+					> div:first-of-type {
+						margin: 0 !important;
+					}
 
-body > #root > div:not([id]) > div[class|="sc"]:nth-of-type(2) > div > div:first-of-type,
-body > #root > .charcoal-token > div:not([id]) > div[class|="sc"]:nth-of-type(2) > div > div:first-of-type {
-	margin: 0 !important;
-}
+					/* side profile card */
+					> div:first-of-type > aside {
+						margin: 0 !important;
+						position: fixed;
+						top: 0;
+						right: 0;
+						transform: scaleX(0.5);
+						transform-origin: right;
+						transition: .15s ease;
+						opacity: 0;
+						z-index: 10;
+						background: rgba(0,0,0,.6);
+						padding: 10px;
+						box-shadow: 0 0 2px 0 #000;
+						border-radius: 0 0 0 20px;
 
-/* content wrap in main page */
-body main {
-	/*max-width: calc(100vw - 17px) !important; fix if scrollbar generate horizontal scroll */
-	width: 100% !important;
-}
+						&:hover {
+							transform: scaleX(1);
+							opacity: 1;
+						}
 
-/* favorites panel under image */
-body main > section > div > div > div:nth-last-child(3) {
-	position: relative !important;
-}
+						> div:last-of-type {
+							display: none;
+						}
 
-/* other author images */
-body main > section > div:last-of-type > div:first-of-type nav,
-body main > section > div:last-of-type > div:nth-last-of-type(2) nav {
-	height: 158px !important;
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	z-index: 4;
-	transform: translateY(120px);
-	opacity: 0;
-	transition: .15s ease;
-	overflow-y: hidden;
-}
+						> section:nth-last-of-type(2) {
+							padding: 16px 0 0;
+						}
 
-body main > section > div:last-of-type > div:first-of-type nav:hover,
-body main > section > div:last-of-type > div:nth-last-of-type(2) nav:hover {
-	opacity: 1;
-	transform: translateY(0px);
-}
+						& h2 > div > div a,
+						& header > div,
+						& header > a {
+							color: #f1f1f1 !important;
+						}
 
-body main > section > div:last-of-type > div:first-of-type nav > div:first-of-type,
-body main > section > div:last-of-type > div:nth-last-of-type(2) nav > div:first-of-type {
-	padding: 0 !important;
-}
+						& section ul > li > div > div:last-of-type > div {
+							> div {
+								margin-right: 0 !important;
+							}
 
-body main > section > div:last-of-type > div:first-of-type nav > div:last-of-type,
-body main > section > div:last-of-type > div:nth-last-of-type(2) nav > div:last-of-type {
-	display: none;
-	position: absolute;/* sticky */
-	left: 0;
-	right: 0;
-	bottom: 0;
-	height: 158px;
-	pointer-events: none;
-}
+							> a {
+								padding-left: 6px !important;
+								line-height: 24px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 
-body main > section > div:last-of-type > div:first-of-type nav > div:last-of-type > button,
-body main > section > div:last-of-type > div:nth-last-of-type(2) nav > div:last-of-type > button {
-	pointer-events: auto;
-}
+	/* fix open menu being cut */
+	> div > div[open],
+	> div > div[open] > div:first-child {
+		max-height: calc(100vh - 15px) !important;
+	}
 
-body > div > div[style*="translateY"] {
-	z-index: 16;
+	/* content wrap in main page */
+	& main {
+		/*max-width: calc(100vw - 17px) !important; fix if scrollbar generate horizontal scroll */
+		width: 100% !important;
+
+		/* favorites panel under image */
+		> section > div > div > div:nth-last-child(3) {
+			position: relative !important;
+		}
+
+		/* other author images */
+		> section > div:last-of-type {
+			> div:first-of-type nav,
+			> div:nth-last-of-type(2) nav {
+				height: 158px !important;
+				position: fixed;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				z-index: 4;
+				transform: translateY(120px);
+				opacity: 0;
+				transition: .15s ease;
+				overflow-y: hidden;
+
+				&:hover {
+					opacity: 1;
+					transform: translateY(0px);
+				}
+
+				> div:first-of-type {
+					padding: 0 !important;
+				}
+
+				> div:last-of-type {
+					display: none;
+					position: absolute; /* sticky */
+					left: 0;
+					right: 0;
+					bottom: 0;
+					height: 158px;
+					pointer-events: none;
+
+					> button {
+						pointer-events: auto;
+					}
+				}
+			}
+		}
+	}
+
+	/* new preview for manga */
+	> div:not([id]) > .charcoal-token > div > div[dir="vert"] > div:first-of-type > div > a > img {
+		width: 100vw !important;
+		height: 100vh !important;
+		object-fit: contain;
+	}
 }
 
 /* image preview / enlarged preview (full screen) wrap */
@@ -131,142 +177,77 @@ body > div[role="presentation"] {
 	display: grid !important;
 	align-content: start;
 	justify-content: center;
-}
 
-/* image counter */
-main div[role="presentation"] > div:first-child:not(:last-child) {
-	overflow: hidden;
-	min-width: 24px;
-	clip: rect(0, auto, auto, -120px);
-}
+	/* image counter */
+	> div:first-child:not(:last-child) {
+		overflow: hidden;
+		min-width: 24px;
+		clip: rect(0, auto, auto, -120px);
 
-main div[role="presentation"] > div:first-child:not(:last-child) > div:first-child:not([role="presentation"]) {
-	position: fixed;
-	right: 0;
-}
+		> div:first-child:not([role="presentation"]) {
+			position: fixed;
+			right: 0;
+		}
+	}
 
-main div[role="presentation"] > a,
-body > div[role="presentation"] > a {
-	display: block;
+	> a {
+		display: block;
+	}
+
+	/* image itself */
+	& img {
+		max-height: 100vh !important;
+		height: 100vh !important;
+		max-width: 100%;
+		object-fit: contain;
+	}
+
+	/* same as above, but for ugoria ("gif" in canvas) */
+	& canvas {
+		height: 100vh;
+		width: auto;
+		background-position: center;
+		max-width: 100%;
+		object-fit: contain;
+		background-size: contain;
+
+		~ button {
+			position: absolute !important;
+		}
+	}
+
+	/* scroll next / previous image */
+	& button {
+		z-index: 100;
+		position: fixed !important;
+	}
 }
 
 body > div[role="presentation"] > div {
-	background: rgb(31, 31, 31);
+	background: rgb(31 31 31);
 }
 
-/* image itself */
-main div[role="presentation"] img,
-body > div[role="presentation"] img {
-	max-height: 100vh !important;
-	height: 100vh !important;
-	max-width: 100%;
-	object-fit: contain;
-}
+main div[role="presentation"] {
+	> div:first-of-type > div[role="presentation"] {
+		border-radius: 8px 8px 0px 0px;
+	}
 
-/* same as above, but for ugoria ("gif" in canvas) */
-main div[role="presentation"] canvas,
-body > div[role="presentation"] canvas {
-	height: 100vh;
-	width: auto;
-	background-position: center;
-	max-width: 100%;
-	object-fit: contain;
-	background-size: contain;
-}
+	> div:last-of-type > div[role="presentation"] {
+		border-radius: 0px 0px 8px 8px;
+	}
 
-/* scroll next / previous image */
-main div[role="presentation"] button,
-body > div[role="presentation"] button {
-	z-index: 100;
-	position: fixed !important;
-}
-
-main div[role="presentation"] canvas ~ button,
-body > div[role="presentation"] canvas ~ button {
-	position: absolute !important;
-}
-
-main div[role="presentation"] > div:first-of-type > div[role="presentation"] {
-	border-radius: 8px 8px 0px 0px;
-}
-
-main div[role="presentation"] > div:last-of-type > div[role="presentation"] {
-	border-radius: 0px 0px 8px 8px;
-}
-
-main div[role="presentation"] > div:first-of-type:last-of-type > div[role="presentation"] {
-	border-radius: 8px !important;
-}
-
-/* side profile card */
-body > #root > div:not([id]) > div[class|="sc"]:nth-of-type(2) > div > div:first-of-type > aside,
-body > #root > .charcoal-token > div:not([id]) > div[class|="sc"]:nth-of-type(2) > div > div:first-of-type > aside {
-	margin: 0 !important;
-	position: fixed;
-	top: 0;
-	right: 0;
-	transform: scaleX(0.5);
-	transform-origin: right;
-	transition: .15s ease;
-	opacity: 0;
-	z-index: 10;
-	background: rgba(0,0,0,.6);
-	padding: 10px;
-	box-shadow: 0 0 2px 0 #000;
-	border-radius: 0 0 0 20px;
-}
-
-body > #root > div:not([id]) > div[class|="sc"]:nth-of-type(2) > div > div:first-of-type > aside:hover,
-body > #root > .charcoal-token > div:not([id]) > div[class|="sc"]:nth-of-type(2) > div > div:first-of-type > aside:hover {
-	transform: scaleX(1);
-	opacity: 1;
-}
-
-body > #root > div:not([id]) > div[class|="sc"]:nth-of-type(2) > div > div:first-of-type > aside > section:last-child,
-body > #root > .charcoal-token > div:not([id]) > div[class|="sc"]:nth-of-type(2) > div > div:first-of-type > aside > section:last-child,
-body > #root > div:not([id]) > div[class|="sc"]:nth-of-type(2) > div > div:first-of-type > aside > div:last-of-type,
-body > #root > .charcoal-token > div:not([id]) > div[class|="sc"]:nth-of-type(2) > div > div:first-of-type > aside > div:last-of-type {
-	display: none;
-}
-
-body > #root > div:not([id]) > div[class|="sc"]:nth-of-type(2) > div > div:first-of-type > aside > section:nth-last-of-type(2),
-body > #root > .charcoal-token > div:not([id]) > div[class|="sc"]:nth-of-type(2) > div > div:first-of-type > aside > section:nth-last-of-type(2) {
-	padding: 16px 0 0;
-}
-
-body > #root > div:not([id]) > div[class|="sc"]:nth-of-type(2) > div > div:first-of-type > aside h2 > div > div > a,
-body > #root > .charcoal-token > div:not([id]) > div[class|="sc"]:nth-of-type(2) > div > div:first-of-type > aside h2 > div > div > a,
-body > #root > div:not([id]) > div[class|="sc"]:nth-of-type(2) > div > div:first-of-type > aside header > div,
-body > #root > .charcoal-token > div:not([id]) > div[class|="sc"]:nth-of-type(2) > div > div:first-of-type > aside header > div,
-body > #root > div:not([id]) > div[class|="sc"]:nth-of-type(2) > div > div:first-of-type > aside header > a,
-body > #root > .charcoal-token > div:not([id]) > div[class|="sc"]:nth-of-type(2) > div > div:first-of-type > aside header > a {
-	color: #f1f1f1 !important;
-}
-
-body > #root > div:not([id]) > div[class|="sc"]:nth-of-type(2) > div > aside section ul > li > div > div:last-of-type > div > div,
-body > #root > .charcoal-token > div:not([id]) > div[class|="sc"]:nth-of-type(2) > div > aside section ul > li > div > div:last-of-type > div > div {
-	margin-right: 0 !important;
-}
-
-body > #root > div:not([id]) > div[class|="sc"]:nth-of-type(2) > div > aside section ul > li > div > div:last-of-type > div > a,
-body > #root > .charcoal-token > div:not([id]) > div[class|="sc"]:nth-of-type(2) > div > aside section ul > li > div > div:last-of-type > div > a {
-	padding-left: 6px !important;
-	line-height: 24px;
+	> div:first-of-type:last-of-type > div[role="presentation"] {
+		border-radius: 8px !important;
+	}
 }
 
 /* fix for profile cards */
 .gtm-illust-recommend-zone ul > li {
 	z-index: 2;
 }
+
 div[aria-haspopup="true"] div[role="presentation"] {
 	z-index: 15;
-}
-
-/* new preview for manga */
-body > div:not([id]) > .charcoal-token > div > div[dir="vert"] > div:first-of-type > div > a > img {
-	width: 100vw !important;
-	height: 100vh !important;
-	object-fit: contain;
 }
 
 /* recommended works on like */
@@ -286,7 +267,6 @@ a.gtm-expand-full-size-illust[data-page] {
 }
 
 /* AD */
-body > #root > div:not([id]) > div[class|="sc"]:nth-of-type(1) > div:last-of-type,
 body > #root > .charcoal-token > div:not([id]) > div[class|="sc"]:nth-of-type(1) > div:last-of-type,
 iframe {
 	display: none !important;
