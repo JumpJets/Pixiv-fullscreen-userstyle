@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name         Pixiv fullscreen userstyle
-@version      2023.07.21
+@version      2024.05.03
 @namespace    github.com/JumpJets/Pixiv-fullscreen-userstyle
 @description  Maximize preview for website and make it convenient to navigate with my Global-moving-support-userscript.
 @author       XCanG
@@ -10,334 +10,354 @@
 ==/UserStyle== */
 
 @-moz-document url-prefix("https://www.pixiv.net/artworks/"), url-prefix("https://www.pixiv.net/en/artworks/") {
-/* Restyle pixiv image viewer */
+	/* Restyle pixiv image viewer */
 
-body {
-	min-width: unset !important;
+	body {
+		min-width: unset !important;
 
-	> #root {
-		overflow-y: hidden !important;
+		> #root {
+			overflow-y: hidden !important;
 
-		> .charcoal-token > div {
-			/* top menu */
-			& > div:has(button[title="Menu"]) {
-				position: fixed;
-				z-index: 30;
-				transform: translateY(-54px);
-				opacity: 0;
-				transition: .1s ease;
+			> .charcoal-token > div {
+				/* top menu */
+				& > div:has(button[title="Menu"]) {
+					position: fixed;
+					z-index: 30;
+					transform: translateY(-54px);
+					opacity: 0;
+					transition: .1s ease;
 
-				&:hover {
-					opacity: 1;
-					transform: translateY(0px);
-				}
-			}
-
-			> div > div[style*="position: relative"] > div:last-of-type {
-				display: none;
-				/* backdrop-filter: brightness(0.5); */
-			}
-
-			/* main page wrap */
-			> div[style] {
-				position: relative;
-				display: grid;
-				/*justify-content: start;
-				justify-items: center;*/
-
-				> div > div {
-					max-width: 100% !important;
-					padding: 0 !important;
-					margin: 0 !important;
-
-					> div:first-of-type {
-						margin: 0 !important;
-					}
-
-					/* side profile card */
-					> div:first-of-type > aside {
-						margin: 0 !important;
-						position: fixed;
-						top: 0;
-						right: 0;
-						transform: scaleX(0.5);
-						transform-origin: right;
-						transition: .15s ease;
-						opacity: 0;
-						z-index: 10;
-						background: rgba(0,0,0,.6);
-						padding: 10px;
-						box-shadow: 0 0 2px 0 #000;
-						border-radius: 0 0 0 20px;
-
-						&:hover {
-							transform: scaleX(1);
-							opacity: 1;
-						}
-
-						> div:last-of-type {
-							display: none;
-						}
-
-						> section:nth-last-of-type(2) {
-							padding: 16px 0 0;
-						}
-
-						& h2 > div > div a,
-						& header > div,
-						& header > a {
-							color: #f1f1f1 !important;
-						}
-
-						& section ul > li > div > div:last-of-type > div {
-							> div {
-								margin-right: 0 !important;
-							}
-
-							> a {
-								padding-left: 6px !important;
-								line-height: 24px;
-							}
-						}
+					&:hover {
+						opacity: 1;
+						transform: translateY(0px);
 					}
 				}
-			}
-		}
-	}
 
-	/* fix open menu being cut */
-	> div > div[open],
-	> div > div[open] > div:first-child {
-		max-height: calc(100vh - 15px) !important;
-	}
-
-	/* content wrap in main page */
-	& main {
-		/*max-width: calc(100vw - 17px) !important; fix if scrollbar generate horizontal scroll */
-		width: 100% !important;
-
-		/* favorites panel under image */
-		> section > div > div > div:nth-last-child(3) {
-			position: relative !important;
-		}
-
-		/* other author images */
-		> section > div:last-of-type {
-			> div:first-of-type nav,
-			> div:nth-last-of-type(2) nav {
-				height: 158px !important;
-				position: fixed;
-				bottom: 0;
-				left: 0;
-				right: 0;
-				z-index: 4;
-				transform: translateY(120px);
-				opacity: 0;
-				transition: .15s ease;
-				overflow-y: hidden;
-
-				&:hover {
-					opacity: 1;
-					transform: translateY(0px);
-				}
-
-				> div:first-of-type {
-					padding: 0 !important;
-				}
-
-				> div:last-of-type {
+				> div > div[style*="position: relative"] > div:last-of-type {
 					display: none;
-					position: absolute; /* sticky */
+					/* backdrop-filter: brightness(0.5); */
+				}
+
+				/* main page wrap */
+				> div[style] {
+					position: relative;
+					display: grid;
+					/*justify-content: start;
+					justify-items: center;*/
+
+					> div > div {
+						max-width: 100% !important;
+						padding: 0 !important;
+						margin: 0 !important;
+
+						> div:first-of-type {
+							margin: 0 !important;
+						}
+
+						/* side profile card */
+						> div:first-of-type > aside {
+							margin: 0 !important;
+							position: fixed;
+							top: 0;
+							right: 0;
+							transform: scaleX(0.5);
+							transform-origin: right;
+							transition: .15s ease;
+							opacity: 0;
+							z-index: 10;
+							background: rgba(0,0,0,.6);
+							padding: 10px;
+							box-shadow: 0 0 2px 0 #000;
+							border-radius: 0 0 0 20px;
+
+							&:hover {
+								transform: scaleX(1);
+								opacity: 1;
+							}
+
+							> div:last-of-type {
+								display: none;
+							}
+
+							> section:nth-last-of-type(2) {
+								padding: 16px 0 0;
+							}
+
+							& h2 > div > div a,
+							& header > div,
+							& header > a {
+								color: #f1f1f1 !important;
+							}
+
+							& section ul > li > div > div:last-of-type > div {
+								> div {
+									margin-right: 0 !important;
+								}
+
+								> a {
+									padding-left: 6px !important;
+									line-height: 24px;
+								}
+							}
+						}
+					}
+				}
+
+				/* rare image recommendation section at bottom */
+				& aside > section > div:not([class]) > div:has(> ul) {
+					width: unset !important;
+				}
+			}
+		}
+
+		/* fix open menu being cut */
+		> div > div[open],
+		> div > div[open] > div:first-child {
+			max-height: calc(100vh - 15px) !important;
+		}
+
+		/* content wrap in main page */
+		& main {
+			/*max-width: calc(100vw - 17px) !important; fix if scrollbar generate horizontal scroll */
+			width: 100% !important;
+
+			/* favorites panel under image */
+			> section > div > div > div:nth-last-child(3) {
+				position: relative !important;
+			}
+
+			/* other author images */
+			> section > div:last-of-type {
+				> div:first-of-type nav,
+				> div:nth-last-of-type(2) nav {
+					height: 158px !important;
+					position: fixed;
+					bottom: 0;
 					left: 0;
 					right: 0;
-					bottom: 0;
-					height: 158px;
-					pointer-events: none;
+					z-index: 4;
+					transform: translateY(120px);
+					opacity: 0;
+					transition: .15s ease;
+					overflow-y: hidden;
 
-					> button {
-						pointer-events: auto;
+					&:hover {
+						opacity: 1;
+						transform: translateY(0px);
+					}
+
+					> div:first-of-type {
+						padding: 0 !important;
+					}
+
+					> div:last-of-type {
+						display: none;
+						position: absolute; /* sticky */
+						left: 0;
+						right: 0;
+						bottom: 0;
+						height: 158px;
+						pointer-events: none;
+
+						> button {
+							pointer-events: auto;
+						}
 					}
 				}
 			}
 		}
-	}
 
-	/* new preview for manga */
-	> div:not([id]) > .charcoal-token > div > div[dir="vert"] > div:first-of-type > div > a > img {
-		width: 100vw !important;
-		height: 100vh !important;
-		object-fit: contain;
-	}
-}
-
-/* image preview / enlarged preview (full screen) wrap */
-main div[role="presentation"],
-body > div[role="presentation"] {
-	display: grid !important;
-	align-content: start;
-	justify-content: center;
-
-	/* image counter */
-	> div:first-child:not(:last-child) {
-		overflow: hidden;
-		min-width: 24px;
-		clip: rect(0, auto, auto, -120px);
-
-		> div:first-child:not([role="presentation"]) {
-			position: fixed;
-			right: 0;
+		/* new preview for manga */
+		> div:not([id]) > .charcoal-token > div > div[dir="vert"] > div:first-of-type > div > a > img {
+			width: 100vw !important;
+			height: 100vh !important;
+			object-fit: contain;
 		}
 	}
 
-	> a {
-		display: block;
-	}
+	/* image preview / enlarged preview (full screen) wrap */
+	main div[role="presentation"],
+	body > div[role="presentation"] {
+		display: grid !important;
+		align-content: start;
+		justify-content: center;
 
-	/* image itself */
-	& img {
-		max-height: 100vh !important;
-		height: 100vh !important;
-		max-width: 100%;
-		object-fit: contain;
-	}
+		/* image counter */
+		> div:first-child:not(:last-child) {
+			overflow: hidden;
+			min-width: 24px;
+			clip: rect(0, auto, auto, -120px);
 
-	/* same as above, but for ugoria ("gif" in canvas) */
-	& canvas {
-		height: 100vh;
-		width: auto;
-		background-position: center;
-		max-width: 100%;
-		object-fit: contain;
-		background-size: contain;
+			> div:first-child:not([role="presentation"]) {
+				position: fixed;
+				right: 0;
+			}
+		}
 
-		~ button {
-			position: absolute !important;
+		> a {
+			display: block;
+		}
+
+		/* image itself */
+		& img {
+			max-height: 100vh !important;
+			height: 100vh !important;
+			max-width: 100%;
+			object-fit: contain;
+		}
+
+		/* same as above, but for ugoria ("gif" in canvas) */
+		& canvas {
+			height: 100vh;
+			width: auto;
+			background-position: center;
+			max-width: 100%;
+			object-fit: contain;
+			background-size: contain;
+
+			~ button {
+				position: absolute !important;
+			}
+		}
+
+		/* scroll next / previous image */
+		& button {
+			z-index: 100;
+			position: fixed !important;
 		}
 	}
 
-	/* scroll next / previous image */
-	& button {
-		z-index: 100;
-		position: fixed !important;
-	}
-}
-
-body > div[role="presentation"] > div {
-	background: rgb(31 31 31);
-}
-
-main div[role="presentation"] {
-	> div:first-of-type > div[role="presentation"] {
-		border-radius: 8px 8px 0px 0px;
+	body > div[role="presentation"] > div {
+		background: rgb(31 31 31);
 	}
 
-	> div:last-of-type > div[role="presentation"] {
-		border-radius: 0px 0px 8px 8px;
+	main div[role="presentation"] {
+		> div:first-of-type > div[role="presentation"] {
+			border-radius: 8px 8px 0px 0px;
+		}
+
+		> div:last-of-type > div[role="presentation"] {
+			border-radius: 0px 0px 8px 8px;
+		}
+
+		> div:first-of-type:last-of-type > div[role="presentation"] {
+			border-radius: 8px !important;
+		}
 	}
 
-	> div:first-of-type:last-of-type > div[role="presentation"] {
-		border-radius: 8px !important;
+	/* fix for profile cards */
+	.gtm-illust-recommend-zone ul > li {
+		z-index: 2;
 	}
-}
 
-/* fix for profile cards */
-.gtm-illust-recommend-zone ul > li {
-	z-index: 2;
-}
+	div[aria-haspopup="true"] div[role="presentation"] {
+		z-index: 15;
+	}
 
-div[aria-haspopup="true"] div[role="presentation"] {
-	z-index: 15;
-}
+	/* recommended works on like */
+	main > section figcaption > div:first-child > div:last-child > div:first-child:has(> ul) {
+		max-width: calc(100vw - 10px);
+	}
 
-/* recommended works on like */
-main > section figcaption > div:first-child > div:last-child > div:first-child:has(> ul) {
-	max-width: calc(100vw - 10px);
-}
+	/* image suggestions (at bottom) */
+	.gtm-illust-recommend-zone[data-gtm-recommend-zone="new-illust-detail"] > div > div {
+		width: unset !important;
+	}
 
-/* image suggestions (at bottom) */
-.gtm-illust-recommend-zone[data-gtm-recommend-zone="new-illust-detail"] > div > div {
-	width: unset !important;
-}
+	/* Fix fullscreen reader 100vh -16px size in JS */
+	a.gtm-expand-full-size-illust[data-page] {
+		height: calc(100vh - 16px);
+		display: grid;
+	}
 
-/* Fix fullscreen reader 100vh -16px size in JS */
-a.gtm-expand-full-size-illust[data-page] {
-	height: calc(100vh - 16px);
-	display: grid;
-}
-
-/* AD */
-body > #root > .charcoal-token > div:not([id]) > div[class|="sc"]:nth-of-type(1) > div:last-of-type,
-iframe {
-	display: none !important;
-	width: 0 !important;
-	height: 0 !important;
-	overflow: hidden !important;
-	position: absolute !important;
-	top: 0 !important;
-	left: 0 !important;
-	visibility: collapse !important;
-	border: none !important;
-	max-width: 0 !important;
-	max-height: 0 !important;
-	pointer-events: none !important;
-}
-
-
+	/* AD */
+	body > #root > .charcoal-token > div:not([id]) > div[class|="sc"]:nth-of-type(1) > div:last-of-type,
+	iframe {
+		display: none !important;
+		width: 0 !important;
+		height: 0 !important;
+		overflow: hidden !important;
+		position: absolute !important;
+		top: 0 !important;
+		left: 0 !important;
+		visibility: collapse !important;
+		border: none !important;
+		max-width: 0 !important;
+		max-height: 0 !important;
+		pointer-events: none !important;
+	}
 }
 
 @-moz-document url-prefix("https://www.pixiv.net/tags/"), url-prefix("https://www.pixiv.net/en/tags/") {
-/* Pixiv tags, highlighting AI */
+	/* Pixiv tags, highlighting AI */
 
-/* AD */
-a[aria-label="pixiv Premium Free Trial"] {
-	display: none !important;
-}
+	/* AD */
+	a[aria-label="pixiv Premium Free Trial"] {
+		display: none !important;
+	}
 
-section aside > iframe + ul::after {
-	pointer-events: none;
-}
+	section aside > iframe + ul::after {
+		pointer-events: none;
+	}
 
-/* Highlight AI images */
-div[type="illust"] div[radius]:has(:is(
-	img[alt~="AI,"],
-	img[alt~="AI"],
-	img[alt*="NovelAI"],
-	img[alt*="StableDiffusion"],
-	img[alt*="AIart"]
-))::after {
-	content: "AI";
-	display: block;
-	position: absolute;
-	left: 0;
-	bottom: 0;
-	padding: 4px;
-	text-shadow: 1px 1px 1px #00000057;
-	color: #ffb56f;
-	pointer-events: none;
-}
+	/* Highlight AI images */
+	div[type="illust"] div[radius]:has(:is(
+		img[alt~="AI,"],
+		img[alt~="AI"],
+		img[alt*="NovelAI"],
+		img[alt*="StableDiffusion"],
+		img[alt*="AIart"]
+	))::after {
+		content: "AI";
+		display: block;
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		padding: 4px;
+		text-shadow: 1px 1px 1px #00000057;
+		color: #ffb56f;
+		pointer-events: none;
+	}
 
-div[type="illust"] div[radius]:not(:hover):has(:is(
-	img[alt~="AI,"],
-	img[alt~="AI"],
-	img[alt*="NovelAI"],
-	img[alt*="StableDiffusion"],
-	img[alt*="AIart"]
-))::before {
-	border-bottom: 30px solid #ff572294 !important;
-	height: 86%;
-	backdrop-filter: grayscale(.5) brightness(.7);
-}
-
-
+	div[type="illust"] div[radius]:not(:hover):has(:is(
+		img[alt~="AI,"],
+		img[alt~="AI"],
+		img[alt*="NovelAI"],
+		img[alt*="StableDiffusion"],
+		img[alt*="AIart"]
+	))::before {
+		border-bottom: 30px solid #ff572294 !important;
+		height: 86%;
+		backdrop-filter: grayscale(.5) brightness(.7);
+	}
 }
 
 @-moz-document url-prefix("https://www.pixiv.net/") {
-/* Global pixiv styles */
+	/* Global pixiv styles */
 
-/* Recomendation list on follow */
-body > div > div[class|="sc"][style^="transform"]:has(svg[size="24"]):not(:hover) {
-	opacity: .3 !important;
+	/* Recomendation list on follow */
+	body > div > div[class|="sc"][style^="transform"]:has(svg[size="24"]):not(:hover) {
+		opacity: .3 !important;
+	}
 }
 
+@-moz-document url-prefix("https://www.pixiv.net/messages.php") {
+	ul.yaritori-list {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+		grid-auto-rows: 108px;
 
+		li.yaritori-user {
+			float: unset !important;
+			width: unset !important;
+			height: unset !important;
+			padding: 0 !important;
+
+			.user-box {
+				width: unset !important;
+				height: 100% !important;
+				padding: 0 !important;
+			}
+		}
+	}
 }
