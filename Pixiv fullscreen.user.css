@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name         Pixiv fullscreen userstyle
-@version      2024.05.03
+@version      2024.05.15
 @namespace    github.com/JumpJets/Pixiv-fullscreen-userstyle
 @description  Maximize preview for website and make it convenient to navigate with my Global-moving-support-userscript.
 @author       XCanG
@@ -23,13 +23,14 @@
 				& > div:has(button[title="Menu"]) {
 					position: fixed;
 					z-index: 30;
-					transform: translateY(-54px);
+					translate: 0 -54px;
 					opacity: 0;
 					transition: .1s ease;
 
-					&:hover {
+					&:hover,
+					&:focus-within {
 						opacity: 1;
-						transform: translateY(0px);
+						translate: 0 0px;
 					}
 				}
 
@@ -60,7 +61,7 @@
 							position: fixed;
 							top: 0;
 							right: 0;
-							transform: scaleX(0.5);
+							scale: 0.5 1;
 							transform-origin: right;
 							transition: .15s ease;
 							opacity: 0;
@@ -71,7 +72,7 @@
 							border-radius: 0 0 0 20px;
 
 							&:hover {
-								transform: scaleX(1);
+								scale: 1 1;
 								opacity: 1;
 							}
 
@@ -136,14 +137,14 @@
 					left: 0;
 					right: 0;
 					z-index: 4;
-					transform: translateY(120px);
+					translate: 0 120px;
 					opacity: 0;
 					transition: .15s ease;
 					overflow-y: hidden;
 
 					&:hover {
 						opacity: 1;
-						transform: translateY(0px);
+						translate: 0 0px;
 					}
 
 					> div:first-of-type {
