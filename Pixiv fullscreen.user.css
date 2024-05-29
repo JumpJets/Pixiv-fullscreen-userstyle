@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name         Pixiv fullscreen userstyle
-@version      2024.05.15
+@version      2024.05.29
 @namespace    github.com/JumpJets/Pixiv-fullscreen-userstyle
 @description  Maximize preview for website and make it convenient to navigate with my Global-moving-support-userscript.
 @author       XCanG
@@ -19,8 +19,17 @@
 			overflow-y: hidden !important;
 
 			> .charcoal-token > div {
+				/* policy update */
+				> div:has(> div > p > a[href^="https://policies.pixiv.net/"]) {
+					position: fixed;
+					z-index: 100;
+					top: 0;
+					left: 0;
+					right: 0;
+				}
+
 				/* top menu */
-				& > div:has(button[title="Menu"]) {
+				> div:has(button[title="Menu"]) {
 					position: fixed;
 					z-index: 30;
 					translate: 0 -54px;
