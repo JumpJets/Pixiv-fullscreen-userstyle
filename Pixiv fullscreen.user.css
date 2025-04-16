@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name         Pixiv fullscreen userstyle
-@version      2024.05.29
+@version      2025.04.16
 @namespace    github.com/JumpJets/Pixiv-fullscreen-userstyle
 @description  Maximize preview for website and make it convenient to navigate with my Global-moving-support-userscript.
 @author       XCanG
@@ -15,17 +15,25 @@
 	body {
 		min-width: unset !important;
 
-		> #root {
+		/* React */
+		> #root,
+		/* Next.js */
+		> #__next {
 			overflow-y: hidden !important;
 
-			> .charcoal-token > div {
-				/* policy update */
-				> div:has(> div > p > a[href^="https://policies.pixiv.net/"]) {
+			/* React */
+			> .charcoal-token > div,
+			/* Next.js */
+			> div[data-overlay-container] > div:last-of-type {
+				/* Policy update */
+				> div:has(> div > p > a[href^="https://policies.pixiv.net/"]),
+				> span:has(> div > div > p > a[href^="https://policies.pixiv.net/"]) {
 					position: fixed;
-					z-index: 100;
 					top: 0;
 					left: 0;
 					right: 0;
+					z-index: 100;
+					display: none; /* temp */
 				}
 
 				/* top menu */
@@ -175,6 +183,11 @@
 					}
 				}
 			}
+
+			/* description without height limit */
+			& [id^="expandable-paragraph"] {
+				max-height: unset !important;
+			}
 		}
 
 		/* new preview for manga */
@@ -191,6 +204,7 @@
 		display: grid !important;
 		align-content: start;
 		justify-content: center;
+		clip-path: inset(0 0 0 0);
 
 		/* image counter */
 		> div:first-child:not(:last-child) {
@@ -302,7 +316,8 @@
 	/* Pixiv tags, highlighting AI */
 
 	/* AD */
-	a[aria-label="pixiv Premium Free Trial"] {
+	a[aria-label="pixiv Premium Free Trial"],
+	div:has(> a[aria-label="pixiv Premium Free Trial"]) {
 		display: none !important;
 	}
 
@@ -348,6 +363,11 @@
 	/* Recomendation list on follow */
 	body > div > div[class|="sc"][style^="transform"]:has(svg[size="24"]):not(:hover) {
 		opacity: .3 !important;
+	}
+	
+	/* Policy update (temp) */
+	:is(#root > .charcoal-token > div, #__next > div[data-overlay-container] > div:last-of-type) > :is(div:has(> div > p > a[href^="https://policies.pixiv.net/"]), span:has(> div > div > p > a[href^="https://policies.pixiv.net/"])) {
+		display: none;
 	}
 }
 
