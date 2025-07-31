@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name         Pixiv fullscreen userstyle
-@version      2025.04.16
+@version      2025.08.01
 @namespace    github.com/JumpJets/Pixiv-fullscreen-userstyle
 @description  Maximize preview for website and make it convenient to navigate with my Global-moving-support-userscript.
 @author       XCanG
@@ -27,7 +27,9 @@
 			> div[data-overlay-container] > div:last-of-type {
 				/* Policy update */
 				> div:has(> div > p > a[href^="https://policies.pixiv.net/"]),
-				> span:has(> div > div > p > a[href^="https://policies.pixiv.net/"]) {
+				> span:has(> div > div > p > a[href^="https://policies.pixiv.net/"]),
+				> span:has(> div > div > p > span > a[href^="https://pixiv1.box.com/"]),
+				> span:has(> div > div > span > div > a[href^="https://policies.pixiv.net/"]) {
 					position: fixed;
 					top: 0;
 					left: 0;
