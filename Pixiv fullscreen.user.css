@@ -287,9 +287,10 @@
 	}
 
 	/* image suggestions (at bottom) */
-	.gtm-illust-recommend-zone[data-gtm-recommend-zone="new-illust-detail"] > {
+	.gtm-illust-recommend-zone[data-gtm-recommend-zone="new-illust-detail"] {
 		> div > div {
 			width: unset !important;
+			padding-inline: 10px;
 		}
 
 		& ul {
