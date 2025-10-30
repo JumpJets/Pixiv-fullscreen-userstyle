@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name         Pixiv fullscreen userstyle
-@version      2025.08.01
+@version      2025.10.30
 @namespace    github.com/JumpJets/Pixiv-fullscreen-userstyle
 @description  Maximize preview for website and make it convenient to navigate with my Global-moving-support-userscript.
 @author       XCanG
@@ -29,7 +29,8 @@
 				> div:has(> div > p > a[href^="https://policies.pixiv.net/"]),
 				> span:has(> div > div > p > a[href^="https://policies.pixiv.net/"]),
 				> span:has(> div > div > p > span > a[href^="https://pixiv1.box.com/"]),
-				> span:has(> div > div > span > div > a[href^="https://policies.pixiv.net/"]) {
+				> span:has(> div > div > span > div > a[href^="https://policies.pixiv.net/"]),
+				> span:has(> div > div > span > div > a[href^="https://pixiv1.box.com/"]) {
 					position: fixed;
 					top: 0;
 					left: 0;
@@ -286,8 +287,21 @@
 	}
 
 	/* image suggestions (at bottom) */
-	.gtm-illust-recommend-zone[data-gtm-recommend-zone="new-illust-detail"] > div > div {
-		width: unset !important;
+	.gtm-illust-recommend-zone[data-gtm-recommend-zone="new-illust-detail"] > {
+		> div > div {
+			width: unset !important;
+		}
+
+		& ul {
+			margin: 0 !important;
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+			gap: 10px;
+
+			> li {
+				margin: 0 !important;
+			}
+		}
 	}
 
 	/* Fix fullscreen reader 100vh -16px size in JS */
