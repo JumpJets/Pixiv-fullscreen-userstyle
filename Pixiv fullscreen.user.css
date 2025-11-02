@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name         Pixiv fullscreen userstyle
-@version      2025.10.30
+@version      2025.11.02
 @namespace    github.com/JumpJets/Pixiv-fullscreen-userstyle
 @description  Maximize preview for website and make it convenient to navigate with my Global-moving-support-userscript.
 @author       XCanG
@@ -287,7 +287,8 @@
 	}
 
 	/* image suggestions (at bottom) */
-	.gtm-illust-recommend-zone[data-gtm-recommend-zone="new-illust-detail"] {
+	.gtm-illust-recommend-zone[data-gtm-recommend-zone="new-illust-detail"],
+	.__top_side_menu_body aside > section:has(> div:first-child h2) {
 		> div > div {
 			width: unset !important;
 			padding-inline: 10px;
