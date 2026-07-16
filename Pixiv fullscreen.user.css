@@ -1,12 +1,14 @@
 /* ==UserStyle==
 @name         Pixiv fullscreen userstyle
-@version      2025.11.02
+@version      2026.07.16
 @namespace    github.com/JumpJets/Pixiv-fullscreen-userstyle
 @description  Maximize preview for website and make it convenient to navigate with my Global-moving-support-userscript.
 @author       XCanG
 @homepageURL  https://github.com/JumpJets/Pixiv-fullscreen-userstyle
 @supportURL   https://github.com/JumpJets/Pixiv-fullscreen-userstyle/discussions
 @license      MIT
+@var          checkbox optimize_hover_cards  "Optimize hover cards" 1
+@preprocessor less
 ==/UserStyle== */
 
 @-moz-document url-prefix("https://www.pixiv.net/artworks/"), url-prefix("https://www.pixiv.net/en/artworks/") {
@@ -70,6 +72,7 @@
 						max-width: 100% !important;
 						padding: 0 !important;
 						margin: 0 !important;
+						filter: none; /* used for skeleton */
 
 						> div:first-of-type {
 							margin: 0 !important;
@@ -128,6 +131,12 @@
 				& aside > section > div:not([class]) > div:has(> ul) {
 					width: unset !important;
 				}
+			}
+
+			/* Skeleton preview for full width */
+			& .__top_side_menu_body > div:first-of-type > div {
+				margin: 0 300px 0 20px;
+				filter: brightness(.5);
 			}
 		}
 
@@ -312,8 +321,28 @@
 		display: grid;
 	}
 
+	/* Loading hover cards may be slow, this optimization hide big background image reducing loading time
+	NOTE: for now it uses hack with preprocessor variable, until if() will be widely adopted */
+	body > div:not([class]) > div[open] a[id][href*="/users/"] > div {
+		& when (@optimize_hover_cards = 1) {
+			background-image: none !important;
+			background-color: antiquewhite;
+
+			&::before {
+				content: "Hide background";
+				position: absolute;
+				top: 10%;
+				left: 50%;
+				color: #0004;
+				translate: -50%;
+				pointer-events: none;
+			}
+		}
+	}
+
 	/* AD */
 	body > #root > .charcoal-token > div:not([id]) > div[class|="sc"]:nth-of-type(1) > div:last-of-type,
+	#__next #gtm-var-theme-kind + div > div[class~="h-64"] + div:has(> div[style*="height"]),
 	iframe {
 		display: none !important;
 		width: 0 !important;
@@ -327,6 +356,79 @@
 		max-width: 0 !important;
 		max-height: 0 !important;
 		pointer-events: none !important;
+	}
+}
+
+@-moz-document url-prefix("https://www.pixiv.net/users/"), url-prefix("https://www.pixiv.net/en/users/") {
+	/* User profile styles */
+
+	/* Reduce chance for having horizontal scroll (fit 3 elements instead of 2) by making suggestions smaller */
+	section ul > div > ul {
+		/* zoom: .8; */
+
+		> li {
+			display: grid !important;
+			grid-template-columns: 1fr;
+
+			> div {
+				grid-column: 1;
+				grid-row: 1;
+
+				&:first-of-type {
+					z-index: 2;
+					margin-left: 10px;
+				}
+
+				&:last-of-type {
+					display: grid;
+					grid-template-columns: 1fr;
+					height: unset !important;
+					width: unset !important;
+
+					> div {
+						grid-column: 1;
+						grid-row: 1;
+						margin: 0;
+
+						&:first-of-type {
+							> div > div:last-of-type {
+								position: absolute;
+								z-index: 5;
+								top: 20px;
+								bottom: unset;
+							}
+						}
+
+						&:last-of-type {
+							z-index: 3;
+							text-shadow: 1px 1px 2px #000;
+							max-width: 270px;
+							margin: 0;
+							padding: 10px 10px 10px 10px;
+							border-radius: 8px;
+							background-color: #0000;
+
+							& * {
+								font-size: 98% !important;
+								line-height: 1.5;
+							}
+						}
+					}
+				}
+			}
+
+			&:hover {
+				> div:last-of-type {
+					> div:last-of-type {
+						background-color: #0008;
+
+						& * {
+							color: #fefefe !important;
+						}
+					}
+				}
+			}
+		}
 	}
 }
 
@@ -387,9 +489,47 @@
 	:is(#root > .charcoal-token > div, #__next > div[data-overlay-container] > div:last-of-type) > :is(div:has(> div > p > a[href^="https://policies.pixiv.net/"]), span:has(> div > div > p > a[href^="https://policies.pixiv.net/"])) {
 		display: none;
 	}
+
+	/* Related to instant scrollbars addon (external JS) */
+	.flex > [data-overlayscrollbars-viewport] {
+		display: flex;
+		gap: 15px;
+	}
+/* 	.flex.overflow-x-scroll {
+		display: grid !important;
+		grid-template-columns: repeat(auto-fit, 180px);
+		grid-auto-flow: column;
+		gap: 15px;
+
+		> [data-overlayscrollbars-viewport] {
+			grid-column: 1 / -1;
+			grid-row: 1 / -1;
+			display: grid;
+			grid-template-columns: subgrid;
+			gap: 15px;
+		}
+
+		&.snap-x > [data-overlayscrollbars-viewport] {
+			scroll-snap-type: x mandatory;
+		}
+	} */
+
+	/* Fix notifications counter blocking cursor from clicking */
+	.charcoal-icon-button[title="Notifications"] + .absolute {
+		pointer-events: none;
+	}
 }
 
 @-moz-document url-prefix("https://www.pixiv.net/messages.php") {
+	:root {
+		color-scheme: dark;
+		filter: invert(1) hue-rotate(180deg);
+	}
+
+	img, ._user-icon, .item._work {
+		filter: invert(1) hue-rotate(-180deg);
+	}
+
 	ul.yaritori-list {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
