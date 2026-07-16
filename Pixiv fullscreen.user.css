@@ -344,6 +344,7 @@
 	body > #root > .charcoal-token > div:not([id]) > div[class|="sc"]:nth-of-type(1) > div:last-of-type,
 	#__next #gtm-var-theme-kind + div > div[class~="h-64"] + div:has(> div[style*="height"]),
 	main > section > div:last-of-type > div:first-of-type:has(> div[style*="height"]),
+	main + aside > section:has(> div[style*="height"]),
 	iframe {
 		display: none !important;
 		width: 0 !important;
